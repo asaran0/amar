@@ -54,7 +54,9 @@ public class MainScreen extends ActionBarActivity {
     }
     public void new_entry(View view)
     {
-        startActivity(new Intent(this,OutletEditScreen.class));
+        Intent intent = new Intent(this,OutletEditScreen.class);
+        intent.putExtra(getString(R.string.OUTLETID),"");
+        startActivity(intent);
     }
     public void update_existing(View view)
     {

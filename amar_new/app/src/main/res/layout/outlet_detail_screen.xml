@@ -6,13 +6,122 @@
     <include layout="@layout/toolbar"/>
 
     <TextView
+        android:id="@+id/outlet_detail_name"
+        android:layout_below="@+id/main_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Amar"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
         />
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="250"
+        android:layout_height="200dp"
+        android:layout_below="@+id/outlet_detail_name"
+        android:layout_marginTop="20dp"
         android:id="@+id/outlet_detail_viewPager"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/outlet_detail_viewPager"
+        android:id="@+id/outlet_detail_area_layout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Area:"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/outlet_detail_locality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="amar"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/outlet_detail_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="amar"
+            android:textColor="@android:color/black"/>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/outlet_detail_area_layout"
+        android:id="@+id/outlet_detail_address_layout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Addreass:"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/outlet_detail_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="amar"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/outlet_detail_name"
+        android:textSize="12sp"
+        android:textColor="#ff0000"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/outlet_detail_noOfImages"
+        android:layout_alignParentLeft="true"
+        android:text="image: 1/10"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/outlet_detail_address_layout"
+        android:gravity="fill_horizontal"
+        android:layout_marginTop="20dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Outlet Details"
+            android:onClick="EditOutletDetails"
+            android:textColor="@android:color/black"
+            android:background="#aaaaaa"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Menu Items"
+            android:onClick="AddMenuItems"
+            android:textColor="@android:color/black"
+            android:background="#aaaaaa"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
 
 </RelativeLayout>

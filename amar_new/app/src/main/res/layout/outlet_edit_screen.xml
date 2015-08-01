@@ -16,11 +16,11 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp">
 
-            <TextView
+            <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Outlet Name" />
+                android:text="Outlet Name" />-->
 
             <EditText
                 android:layout_width="match_parent"
@@ -30,11 +30,11 @@
                 android:gravity="center_vertical"
                 android:id="@+id/outlet_edit_name" />
 
-            <TextView
+            <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Locality" />
+                android:text="Locality" />-->
 
             <EditText
                 android:layout_width="match_parent"
@@ -44,11 +44,11 @@
                 android:gravity="center_vertical"
                 android:id="@+id/outlet_edit_locality" />
 
-            <TextView
+            <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="City" />
+                android:text="City" />-->
 
             <EditText
                 android:layout_width="match_parent"
@@ -58,11 +58,11 @@
                 android:gravity="center_vertical"
                 android:id="@+id/outlet_edit_city" />
 
-            <TextView
+            <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Pin Code" />
+                android:text="Pin Code" />-->
 
             <EditText
                 android:layout_width="match_parent"
@@ -72,22 +72,22 @@
                 android:gravity="center_vertical"
                 android:id="@+id/outlet_edit_pin" />
 
-            <TextView
+            <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Address" />
+                android:text="Address" />-->
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:hint=""
+                android:hint="Address"
                 android:gravity="center_vertical"
                 android:id="@+id/outlet_edit_address" />
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
                 android:visibility="gone"
                 android:id="@+id/outlet_edit_imageView"
@@ -107,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:textColor="#ff0000"
+                android:visibility="gone"
                 android:id="@+id/outlet_edit_alert"/>
 
             <Button
@@ -115,7 +116,7 @@
                 android:layout_height="60dp"
                 android:text="Submit"
                 android:gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="30dp"
                 android:onClick="OutletEditSubmit"
                 android:layout_gravity="center_horizontal"

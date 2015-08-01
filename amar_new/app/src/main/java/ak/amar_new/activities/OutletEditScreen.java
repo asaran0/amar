@@ -41,7 +41,8 @@ public class OutletEditScreen extends ActionBarActivity {
     private static final int CAMERA_REQUEST = 221;
     ImageView imageView;
     private File extFile;
-    private static String outletId = "";
+    private File imgDir;
+    private static String outletId="";  //we made it static because if we go to camera then the outletid informasion gone.
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,12 +53,43 @@ public class OutletEditScreen extends ActionBarActivity {
         getSupportActionBar().setTitle("Create New Outlet");
         //getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        imageView = (ImageView) findViewById(R.id.outlet_edit_imageView);
         extFile = Environment.getExternalStorageDirectory();
+        outletId = getIntent().getStringExtra(getString(R.string.OUTLETID));
 
-
+        if(outletId==null) outletId = "";
+        if (outletId.equals("")) {
+            unique_name();
+        } else {
+            RenderOutletDetails();
+        }
+        imageView = (ImageView) findViewById(R.id.outlet_edit_imageView);
     }
 
+   /* @Override
+    protected void onResume() {
+        outletId = getIntent().getStringExtra(getString(R.string.OUTLETID));
+        super.onResume();
+    }
+*/
+    public void RenderOutletDetails()
+    {
+        imgDir = new File(extFile,"/"+getString(R.string.base_folder_name)+"/"+outletId);
+        EditText et;
+        et = (EditText) findViewById(R.id.outlet_edit_name);
+        et.setText(OutletDetailModel.outletName);
+
+        et = (EditText) findViewById(R.id.outlet_edit_locality);
+        et.setText(OutletDetailModel.locality);
+
+        et = (EditText) findViewById(R.id.outlet_edit_city);
+        et.setText(OutletDetailModel.city);
+
+        et = (EditText) findViewById(R.id.outlet_edit_pin);
+        et.setText(OutletDetailModel.pinCode);
+
+        et = (EditText) findViewById(R.id.outlet_edit_address);
+        et.setText(OutletDetailModel.address);
+    }
     public void select_image(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("choose already saved image or take it from camera");
@@ -123,10 +155,10 @@ public class OutletEditScreen extends ActionBarActivity {
                 break;
             case CAMERA_REQUEST:
                 if (resultCode == RESULT_OK) {
-                    Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    imageView.setImageBitmap(photo);
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    imageView.setImageBitmap(bitmap);
                     imageView.setVisibility(View.VISIBLE);
-                    saveImage(photo);
+                    saveImage(bitmap);
                 }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -134,21 +166,7 @@ public class OutletEditScreen extends ActionBarActivity {
 
     public void saveImage(Bitmap bitmap) {
         if (bitmap != null) {
-            File file = new File(extFile, "/ak_projects");
-            if (!file.exists()) {
-                Log.i("amar", "Directory does not exists");
 
-                file.mkdir();
-            }
-            if (outletId.equals("")) {
-                outletId = unique_name();
-            }
-            File imgDir = new File(file, "/" + outletId);
-            if (!imgDir.exists()) {
-                Log.i("amar", "Directory does not exists " + outletId);
-
-                imgDir.mkdir();
-            }
             int n = 10000;
             Random generator = new Random();
             n = generator.nextInt(n);
@@ -158,6 +176,7 @@ public class OutletEditScreen extends ActionBarActivity {
             try {
                 Log.i("amar", "Creating the image file");
                 FileOutputStream out = new FileOutputStream(file1);
+
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
                 out.flush();
                 out.close();
@@ -168,15 +187,26 @@ public class OutletEditScreen extends ActionBarActivity {
         }
     }
 
-    public String unique_name() {
-        String folder_name;
+    public void unique_name() {
+
+        Log.i("test", "unique name");
         long sysTime = System.nanoTime();
-        folder_name = String.format("%08x", (sysTime / 100000) & 0xffffffff) + String.format("%05x", (sysTime % 100000) & 0xfffff);
-        //TextView tv = (TextView)findViewById(R.id.listing_name);
-        //Date date = new Date();
-        //folder_name = tv.getText().toString().substring(0,4)+(date.getYear()-100)+(date.getDate()<=9?"0":"")+date.getDate()+date.getHours()+date.getMinutes();
-        //Log.i("amar 1", folder_name);
-        return folder_name;
+        outletId = String.format("%08x", (sysTime / 100000) & 0xffffffff) + String.format("%05x", (sysTime % 100000) & 0xfffff);
+
+        Log.i("test", "unique name "+outletId);
+        File file = new File(extFile,"/"+getString(R.string.base_folder_name));
+        if (!file.exists()) {
+            Log.i("test", "Directory does not exists ak_projects ");
+
+            file.mkdir();
+        }
+
+        imgDir = new File(file, "/" + outletId);
+        if (!imgDir.exists()) {
+            Log.i("test", "Directory does not exists " + outletId);
+
+            imgDir.mkdir();
+        }
     }
 
     @Override
@@ -209,7 +239,6 @@ public class OutletEditScreen extends ActionBarActivity {
                 Log.i("amar1 onbackpress 1", outletId + " " + imgDir.getAbsolutePath());
             }
         }
-        outletId = "";
         super.onBackPressed();
     }
 
@@ -217,8 +246,8 @@ public class OutletEditScreen extends ActionBarActivity {
         validate_data();
         Intent i = new Intent(this, OutletDetailScreen.class);
         i.putExtra(getString(R.string.OUTLETID), outletId);
-        outletId = "";
         startActivity(i);
+        finish();
 
 
     }
