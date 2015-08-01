@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import java.io.FileOutputStream;
 import java.util.Random;
 
 import ak.amar_new.R;
+import ak.amar_new.models.OutletDetailModel;
 
 /*
  * Created by amar on 8/7/15.
@@ -38,6 +40,9 @@ public class OutletEditScreen extends ActionBarActivity {
     private static final int FILE_SELECT_CODE = 220;
     private static final int CAMERA_REQUEST = 221;
     ImageView imageView;
+    private File extFile;
+    private static String outletId = "";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,12 +53,12 @@ public class OutletEditScreen extends ActionBarActivity {
         //getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         imageView = (ImageView) findViewById(R.id.outlet_edit_imageView);
-
+        extFile = Environment.getExternalStorageDirectory();
 
 
     }
-    public void select_image(View view)
-    {
+
+    public void select_image(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("choose already saved image or take it from camera");
         Button bt1 = new Button(this);
@@ -89,7 +94,7 @@ public class OutletEditScreen extends ActionBarActivity {
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 try {
                     startActivityForResult(Intent.createChooser(intent, "Select image to add"), FILE_SELECT_CODE);
-                } catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "The file chooser not found exception " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
 
@@ -104,13 +109,11 @@ public class OutletEditScreen extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode)
-        {
+        switch (requestCode) {
             case FILE_SELECT_CODE:
-                if(resultCode == RESULT_OK)
-                {
+                if (resultCode == RESULT_OK) {
                     String filePath = data.getData().getPath().toString();
-                    Log.i("amar","path = "+filePath);
+                    Log.i("amar", "path = " + filePath);
 
                     Bitmap bitmap = BitmapFactory.decodeFile(filePath);
                     imageView.setImageBitmap(bitmap);
@@ -119,8 +122,7 @@ public class OutletEditScreen extends ActionBarActivity {
                 }
                 break;
             case CAMERA_REQUEST:
-                if(resultCode==RESULT_OK)
-                {
+                if (resultCode == RESULT_OK) {
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
                     imageView.setImageBitmap(photo);
                     imageView.setVisibility(View.VISIBLE);
@@ -129,32 +131,52 @@ public class OutletEditScreen extends ActionBarActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-    public void saveImage(Bitmap bitmap)
-    {
-        File extFile = Environment.getExternalStorageDirectory();
-        File file = new File(extFile,"/ak_projects");
-        if(!file.exists())
-        {
-            Log.i("amar","Directory does not exists");
 
-            file.mkdir();
-        }
-        int n = 10000;
-        Random generator = new Random();
-        n = generator.nextInt(n);
-        String fName = "ak-"+ n +".jpg";
-        File file1 = new File (file, fName);
-        if (file.exists ()) file1.delete ();
-        try {
-            Log.i("amar","Creating the image file");
-            FileOutputStream out = new FileOutputStream(file1);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
+    public void saveImage(Bitmap bitmap) {
+        if (bitmap != null) {
+            File file = new File(extFile, "/ak_projects");
+            if (!file.exists()) {
+                Log.i("amar", "Directory does not exists");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                file.mkdir();
+            }
+            if (outletId.equals("")) {
+                outletId = unique_name();
+            }
+            File imgDir = new File(file, "/" + outletId);
+            if (!imgDir.exists()) {
+                Log.i("amar", "Directory does not exists " + outletId);
+
+                imgDir.mkdir();
+            }
+            int n = 10000;
+            Random generator = new Random();
+            n = generator.nextInt(n);
+            String fName = "ak-" + n + ".jpg";
+            File file1 = new File(imgDir, fName);
+            if (file1.exists()) file1.delete();
+            try {
+                Log.i("amar", "Creating the image file");
+                FileOutputStream out = new FileOutputStream(file1);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                out.flush();
+                out.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public String unique_name() {
+        String folder_name;
+        long sysTime = System.nanoTime();
+        folder_name = String.format("%08x", (sysTime / 100000) & 0xffffffff) + String.format("%05x", (sysTime % 100000) & 0xfffff);
+        //TextView tv = (TextView)findViewById(R.id.listing_name);
+        //Date date = new Date();
+        //folder_name = tv.getText().toString().substring(0,4)+(date.getYear()-100)+(date.getDate()<=9?"0":"")+date.getDate()+date.getHours()+date.getMinutes();
+        //Log.i("amar 1", folder_name);
+        return folder_name;
     }
 
     @Override
@@ -164,10 +186,9 @@ public class OutletEditScreen extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-          if(item.getItemId() == android.R.id.home)
-          {
-              onBackPressed();
-          }
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
 //        if (item.getItemId() == R.id.property_search) {
 //            Intent intent = new Intent(this, SearchActivity.class);
 //            intent.putExtra(SearchActivity.CITY_NAME, mSpinner.getText());
@@ -176,5 +197,65 @@ public class OutletEditScreen extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        Log.i("amar1 onbackpress", outletId);
+        if (!outletId.equals("")) {
+            File imgDir = new File(extFile, "/" + getString(R.string.base_folder_name) + "/" + outletId);
+            if (imgDir.exists()) {
+                //FileUtils.cleanDirectory(imgDir);
+                deleteContents(imgDir);
+                imgDir.delete();
+                Log.i("amar1 onbackpress 1", outletId + " " + imgDir.getAbsolutePath());
+            }
+        }
+        outletId = "";
+        super.onBackPressed();
+    }
 
+    public void OutletEditSubmit(View view) {
+        validate_data();
+        Intent i = new Intent(this, OutletDetailScreen.class);
+        i.putExtra(getString(R.string.OUTLETID), outletId);
+        outletId = "";
+        startActivity(i);
+
+
+    }
+
+    public boolean deleteContents(File dir) {
+        File[] files = dir.listFiles();
+        boolean success = true;
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    success &= deleteContents(file);
+                }
+                if (!file.delete()) {
+                    Log.i("Failed to delete ", file.getAbsolutePath());
+                    success = false;
+                }
+            }
+        }
+        return success;
+    }
+
+    public void validate_data() {
+        EditText et;
+        OutletDetailModel.outletId = outletId;
+        et = (EditText) findViewById(R.id.outlet_edit_name);
+        OutletDetailModel.outletName = et.getText().toString();
+
+        et = (EditText) findViewById(R.id.outlet_edit_locality);
+        OutletDetailModel.locality = et.getText().toString();
+
+        et = (EditText) findViewById(R.id.outlet_edit_city);
+        OutletDetailModel.city = et.getText().toString();
+
+        et = (EditText) findViewById(R.id.outlet_edit_pin);
+        OutletDetailModel.pinCode = et.getText().toString();
+
+        et = (EditText) findViewById(R.id.outlet_edit_address);
+        OutletDetailModel.address = et.getText().toString();
+    }
 }

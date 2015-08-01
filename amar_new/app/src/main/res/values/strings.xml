@@ -5,4 +5,6 @@
     <string name="menu_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="signup"><u>Signup with us</u></string>
+    <string name="base_folder_name">ak_projects</string>
+    <string name="OUTLETID">OUTLETID</string>
 </resources>
