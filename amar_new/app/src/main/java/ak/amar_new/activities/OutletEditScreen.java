@@ -33,7 +33,6 @@ import ak.amar_new.models.OutletDetailModel;
  * Created by amar on 8/7/15.
  */
 public class OutletEditScreen extends ActionBarActivity {
-
     Toolbar mToolbar;
     Menu mMenu;
     private Button submitButton;
@@ -42,6 +41,7 @@ public class OutletEditScreen extends ActionBarActivity {
     ImageView imageView;
     private File extFile;
     private File imgDir;
+    OutletDetailModel om;
     private static String outletId="";  //we made it static because if we go to camera then the outletid informasion gone.
 
     @Override
@@ -55,7 +55,7 @@ public class OutletEditScreen extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         extFile = Environment.getExternalStorageDirectory();
         outletId = getIntent().getStringExtra(getString(R.string.OUTLETID));
-
+        om = new OutletDetailModel();
         if(outletId==null) outletId = "";
         if (outletId.equals("")) {
             unique_name();
@@ -76,19 +76,19 @@ public class OutletEditScreen extends ActionBarActivity {
         imgDir = new File(extFile,"/"+getString(R.string.base_folder_name)+"/"+outletId);
         EditText et;
         et = (EditText) findViewById(R.id.outlet_edit_name);
-        et.setText(OutletDetailModel.outletName);
+        et.setText(om.outletName);
 
         et = (EditText) findViewById(R.id.outlet_edit_locality);
-        et.setText(OutletDetailModel.locality);
+        et.setText(om.locality);
 
         et = (EditText) findViewById(R.id.outlet_edit_city);
-        et.setText(OutletDetailModel.city);
+        et.setText(om.city);
 
         et = (EditText) findViewById(R.id.outlet_edit_pin);
-        et.setText(OutletDetailModel.pinCode);
+        et.setText(om.pinCode);
 
         et = (EditText) findViewById(R.id.outlet_edit_address);
-        et.setText(OutletDetailModel.address);
+        et.setText(om.address);
     }
     public void select_image(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -271,20 +271,20 @@ public class OutletEditScreen extends ActionBarActivity {
 
     public void validate_data() {
         EditText et;
-        OutletDetailModel.outletId = outletId;
+        om.outletId = outletId;
         et = (EditText) findViewById(R.id.outlet_edit_name);
-        OutletDetailModel.outletName = et.getText().toString();
+        om.outletName = et.getText().toString();
 
         et = (EditText) findViewById(R.id.outlet_edit_locality);
-        OutletDetailModel.locality = et.getText().toString();
+        om.locality = et.getText().toString();
 
         et = (EditText) findViewById(R.id.outlet_edit_city);
-        OutletDetailModel.city = et.getText().toString();
+        om.city = et.getText().toString();
 
         et = (EditText) findViewById(R.id.outlet_edit_pin);
-        OutletDetailModel.pinCode = et.getText().toString();
+        om.pinCode = et.getText().toString();
 
         et = (EditText) findViewById(R.id.outlet_edit_address);
-        OutletDetailModel.address = et.getText().toString();
+        om.address = et.getText().toString();
     }
 }

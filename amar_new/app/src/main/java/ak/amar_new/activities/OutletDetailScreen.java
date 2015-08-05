@@ -36,6 +36,7 @@ public class OutletDetailScreen extends ActionBarActivity {
     private File imgDir;
     File extFile;
     ViewPager viewPager;
+    OutletDetailModel om;
     ArrayList<String> imgUrls = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class OutletDetailScreen extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Outlet Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        om = new OutletDetailModel();
         outletId = getIntent().getStringExtra(getString(R.string.OUTLETID));
         extFile = Environment.getExternalStorageDirectory();
         Log.i("test",outletId);
@@ -70,16 +72,16 @@ public class OutletDetailScreen extends ActionBarActivity {
         TextView tv;
 
         tv = (TextView)findViewById(R.id.outlet_detail_name);
-        tv.setText(OutletDetailModel.outletName);
+        tv.setText(om.outletName);
 
         tv = (TextView)findViewById(R.id.outlet_detail_locality);
-        tv.setText(OutletDetailModel.locality);
+        tv.setText(om.locality);
 
         tv = (TextView)findViewById(R.id.outlet_detail_city);
-        tv.setText(OutletDetailModel.city);
+        tv.setText(om.city);
 
         tv = (TextView)findViewById(R.id.outlet_detail_address);
-        tv.setText(OutletDetailModel.address);
+        tv.setText(om.address);
 
         try {
             File fileList[];
@@ -130,12 +132,13 @@ public class OutletDetailScreen extends ActionBarActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             //to check for optimization
             View view = mLayoutInflater.inflate(R.layout.outlet_detail_pager_item,container,false);
-            ImageView imageView = (ImageView)view.findViewById(R.id.outlet_detail_viewPager_item);
+            ImageView imageView = (ImageView)view.findViewById(R.id.outlet_detail_viewPager_item_image);
+            TextView textView = (TextView)view.findViewById(R.id.outlet_detail_viewPager_item_textview);
             Bitmap bitmap = BitmapFactory.decodeFile(imgUrls.get(position));
             imageView.setImageBitmap(bitmap);
+            textView.setText((position+1)+"/"+imgUrls.size());
             container.addView(view);
-            TextView tv = (TextView)findViewById(R.id.outlet_detail_noOfImages);
-            tv.setText((position+1)+"/"+imgUrls.size());
+
             return view;
         }
 
