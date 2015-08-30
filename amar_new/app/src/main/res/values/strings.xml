@@ -7,4 +7,31 @@
     <string name="signup"><u>Signup with us</u></string>
     <string name="base_folder_name">ak_projects</string>
     <string name="OUTLETID">OUTLETID</string>
+    <string name="DETAILS">details.txt</string>
+    <string-array name="indian_bread">
+        <item>Tanduri Roti</item>
+        <item>Buttor Tanduri roti</item>
+        <item>plain Nan</item>
+        <item>Rumali Roti</item>
+        <item>Paratha</item>
+    </string-array>
+    <string-array name="Category">
+        <item>Indian Bread</item>
+        <item>Dal</item>
+        <item>Vegetarian Dry</item>
+        <item>Vegetarian Gravy</item>
+        <item>Dosa</item>
+    </string-array>
+    <string-array name="Dal">
+        <item>Simple Dal</item>
+        <item>Dal fry</item>
+        <item>Dal makhani</item>
+        <item>palak dal</item>
+    </string-array>
+    <string-array name="Dosa">
+        <item>Plain Dosa</item>
+        <item>Masala dosa</item>
+        <item>set Dosa</item>
+        <item>buttor dosa</item>
+    </string-array>
 </resources>

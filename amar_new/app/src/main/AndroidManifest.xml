@@ -12,6 +12,9 @@ android:versionName="1.0">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
     android:name="ak.amar_new.App.AkApplication"
@@ -22,10 +25,10 @@ android:versionName="1.0">
     <activity
         android:name="ak.amar_new.activities.LoginScreen"
         android:label="@string/app_name">
-        <intent-filter>
+        <!--<intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        </intent-filter>-->
 
     </activity>
     <activity
@@ -41,7 +44,13 @@ android:versionName="1.0">
         </activity>
     <activity
         android:name="ak.amar_new.activities.OutletItemsEditScreen"
-        android:screenOrientation="portrait"></activity>
+        android:screenOrientation="portrait">
+        <!--<intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>-->
+        </activity>
+
     <activity
         android:name="ak.amar_new.activities.OutletItemsListScreen"
         android:screenOrientation="portrait"></activity>
@@ -55,9 +64,15 @@ android:versionName="1.0">
     <activity
         android:name="ak.amar_new.activities.MainScreen"
         android:theme="@style/mainScreenTheme"
-        android:screenOrientation="portrait"></activity>
+        android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
 </application>
 
 
 </manifest>
+    <!--google map apk key : AIzaSyB6rfoPbKqyv1KiOj6bMZauZg9IvYvjg5E -->

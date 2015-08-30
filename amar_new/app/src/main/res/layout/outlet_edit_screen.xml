@@ -70,6 +70,7 @@
                 android:layout_marginTop="15dp"
                 android:hint="6 digit pin code."
                 android:gravity="center_vertical"
+                android:inputType="number"
                 android:id="@+id/outlet_edit_pin" />
 
             <!--<TextView

@@ -20,14 +20,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.google.gson.Gson;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 import ak.amar_new.R;
-import ak.amar_new.models.OutletDetailModel;
+import ak.amar_new.models.FoodMenu;
+import ak.amar_new.models.OutletDetail;
+import ak.amar_new.utils.FileUtils;
 
 /*
  * Created by amar on 8/7/15.
@@ -41,7 +46,8 @@ public class OutletEditScreen extends ActionBarActivity {
     ImageView imageView;
     private File extFile;
     private File imgDir;
-    OutletDetailModel om;
+    private FoodMenu foodMenu;
+    private OutletDetail om;
     private static String outletId="";  //we made it static because if we go to camera then the outletid informasion gone.
 
     @Override
@@ -53,16 +59,18 @@ public class OutletEditScreen extends ActionBarActivity {
         getSupportActionBar().setTitle("Create New Outlet");
         //getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        imageView = (ImageView) findViewById(R.id.outlet_edit_imageView);
         extFile = Environment.getExternalStorageDirectory();
         outletId = getIntent().getStringExtra(getString(R.string.OUTLETID));
-        om = new OutletDetailModel();
+        om = new OutletDetail();
+        foodMenu = new FoodMenu();
         if(outletId==null) outletId = "";
         if (outletId.equals("")) {
             unique_name();
         } else {
             RenderOutletDetails();
         }
-        imageView = (ImageView) findViewById(R.id.outlet_edit_imageView);
+
     }
 
    /* @Override
@@ -74,21 +82,25 @@ public class OutletEditScreen extends ActionBarActivity {
     public void RenderOutletDetails()
     {
         imgDir = new File(extFile,"/"+getString(R.string.base_folder_name)+"/"+outletId);
+
+        String path = extFile.getAbsolutePath()+"/"+getString(R.string.base_folder_name)+"/"+outletId+"/"+getString(R.string.DETAILS);
+        foodMenu = FileUtils.ReadFoodMenu(path);
+
         EditText et;
         et = (EditText) findViewById(R.id.outlet_edit_name);
-        et.setText(om.outletName);
+        et.setText(foodMenu.getOutletDetail().getOutletName());
 
         et = (EditText) findViewById(R.id.outlet_edit_locality);
-        et.setText(om.locality);
+        et.setText(foodMenu.getOutletDetail().getLocality());
 
         et = (EditText) findViewById(R.id.outlet_edit_city);
-        et.setText(om.city);
+        et.setText(foodMenu.getOutletDetail().getCity());
 
         et = (EditText) findViewById(R.id.outlet_edit_pin);
-        et.setText(om.pinCode);
+        et.setText(foodMenu.getOutletDetail().getPinCode());
 
         et = (EditText) findViewById(R.id.outlet_edit_address);
-        et.setText(om.address);
+        et.setText(foodMenu.getOutletDetail().getAddress());
     }
     public void select_image(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -197,7 +209,6 @@ public class OutletEditScreen extends ActionBarActivity {
         File file = new File(extFile,"/"+getString(R.string.base_folder_name));
         if (!file.exists()) {
             Log.i("test", "Directory does not exists ak_projects ");
-
             file.mkdir();
         }
 
@@ -244,6 +255,11 @@ public class OutletEditScreen extends ActionBarActivity {
 
     public void OutletEditSubmit(View view) {
         validate_data();
+        FoodMenu foodMenu = new FoodMenu();
+        foodMenu.setOutletDetail(om);
+        String path = extFile.getAbsolutePath()+"/"+getString(R.string.base_folder_name)+"/"+outletId+"/"+getString(R.string.DETAILS);
+        FileUtils.WriteFoodMenu(path, foodMenu);
+
         Intent i = new Intent(this, OutletDetailScreen.class);
         i.putExtra(getString(R.string.OUTLETID), outletId);
         startActivity(i);
@@ -271,20 +287,20 @@ public class OutletEditScreen extends ActionBarActivity {
 
     public void validate_data() {
         EditText et;
-        om.outletId = outletId;
+        om.setOutletId(outletId);
         et = (EditText) findViewById(R.id.outlet_edit_name);
-        om.outletName = et.getText().toString();
+        om.setOutletName(et.getText().toString());
 
         et = (EditText) findViewById(R.id.outlet_edit_locality);
-        om.locality = et.getText().toString();
+        om.setLocality(et.getText().toString());
 
         et = (EditText) findViewById(R.id.outlet_edit_city);
-        om.city = et.getText().toString();
+        om.setCity(et.getText().toString());
 
         et = (EditText) findViewById(R.id.outlet_edit_pin);
-        om.pinCode = et.getText().toString();
+        om.setPinCode(et.getText().toString());
 
         et = (EditText) findViewById(R.id.outlet_edit_address);
-        om.address = et.getText().toString();
+        om.setAddress(et.getText().toString());
     }
 }

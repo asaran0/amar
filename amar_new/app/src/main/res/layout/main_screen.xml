@@ -52,9 +52,9 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/main_drawer_listView"
-            android:layout_width="wrap_content"
+        <ExpandableListView
+            android:id="@+id/main_Expendable_drawer_listView"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ffffff"
             android:layout_gravity="left|start"

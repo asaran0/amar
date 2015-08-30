@@ -1,6 +1,5 @@
 package ak.amar_new.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,7 +24,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 import ak.amar_new.R;
-import ak.amar_new.models.OutletDetailModel;
+import ak.amar_new.models.FoodMenu;
+import ak.amar_new.models.OutletDetail;
+import ak.amar_new.utils.FileUtils;
 
 /**
  * Created by amar on 26/6/15.
@@ -35,8 +36,8 @@ public class OutletDetailScreen extends ActionBarActivity {
     private Toolbar mToolbar;
     private File imgDir;
     File extFile;
+    FoodMenu foodMenu;
     ViewPager viewPager;
-    OutletDetailModel om;
     ArrayList<String> imgUrls = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,9 @@ public class OutletDetailScreen extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Outlet Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        om = new OutletDetailModel();
+
         outletId = getIntent().getStringExtra(getString(R.string.OUTLETID));
+        foodMenu = new FoodMenu();
         extFile = Environment.getExternalStorageDirectory();
         Log.i("test",outletId);
         imgDir = new File(extFile,"/"+getString(R.string.base_folder_name)+"/"+outletId);
@@ -70,18 +72,18 @@ public class OutletDetailScreen extends ActionBarActivity {
     }
     public void setDetails() {
         TextView tv;
-
+        foodMenu = FileUtils.ReadFoodMenu(imgDir.getAbsolutePath()+"/"+getString(R.string.DETAILS));
         tv = (TextView)findViewById(R.id.outlet_detail_name);
-        tv.setText(om.outletName);
+        tv.setText(foodMenu.getOutletDetail().getOutletName());
 
         tv = (TextView)findViewById(R.id.outlet_detail_locality);
-        tv.setText(om.locality);
+        tv.setText(foodMenu.getOutletDetail().getLocality());
 
         tv = (TextView)findViewById(R.id.outlet_detail_city);
-        tv.setText(om.city);
+        tv.setText(foodMenu.getOutletDetail().getCity());
 
         tv = (TextView)findViewById(R.id.outlet_detail_address);
-        tv.setText(om.address);
+        tv.setText(foodMenu.getOutletDetail().getAddress());
 
         try {
             File fileList[];

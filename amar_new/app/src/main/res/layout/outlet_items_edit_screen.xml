@@ -5,4 +5,10 @@
     <include layout="@layout/toolbar"></include>
 
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/outlet_item_edit_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        />
 </LinearLayout>
