@@ -48,7 +48,7 @@ public class OutletEditScreen extends ActionBarActivity {
     private File imgDir;
     private FoodMenu foodMenu;
     private OutletDetail om;
-    private static String outletId="";  //we made it static because if we go to camera then the outletid informasion gone.
+    private static String outletId = "";  //we made it static because if we go to camera then the outletid informasion gone.
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class OutletEditScreen extends ActionBarActivity {
         outletId = getIntent().getStringExtra(getString(R.string.OUTLETID));
         om = new OutletDetail();
         foodMenu = new FoodMenu();
-        if(outletId==null) outletId = "";
+        if (outletId == null) outletId = "";
         if (outletId.equals("")) {
             unique_name();
         } else {
@@ -73,17 +73,16 @@ public class OutletEditScreen extends ActionBarActivity {
 
     }
 
-   /* @Override
-    protected void onResume() {
-        outletId = getIntent().getStringExtra(getString(R.string.OUTLETID));
-        super.onResume();
-    }
-*/
-    public void RenderOutletDetails()
-    {
-        imgDir = new File(extFile,"/"+getString(R.string.base_folder_name)+"/"+outletId);
+    /* @Override
+     protected void onResume() {
+         outletId = getIntent().getStringExtra(getString(R.string.OUTLETID));
+         super.onResume();
+     }
+ */
+    public void RenderOutletDetails() {
+        imgDir = new File(extFile, "/" + getString(R.string.base_folder_name) + "/" + outletId);
 
-        String path = extFile.getAbsolutePath()+"/"+getString(R.string.base_folder_name)+"/"+outletId+"/"+getString(R.string.DETAILS);
+        String path = extFile.getAbsolutePath() + "/" + getString(R.string.base_folder_name) + "/" + outletId + "/" + getString(R.string.DETAILS);
         foodMenu = FileUtils.ReadFoodMenu(path);
 
         EditText et;
@@ -102,6 +101,7 @@ public class OutletEditScreen extends ActionBarActivity {
         et = (EditText) findViewById(R.id.outlet_edit_address);
         et.setText(foodMenu.getOutletDetail().getAddress());
     }
+
     public void select_image(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("choose already saved image or take it from camera");
@@ -205,8 +205,8 @@ public class OutletEditScreen extends ActionBarActivity {
         long sysTime = System.nanoTime();
         outletId = String.format("%08x", (sysTime / 100000) & 0xffffffff) + String.format("%05x", (sysTime % 100000) & 0xfffff);
 
-        Log.i("test", "unique name "+outletId);
-        File file = new File(extFile,"/"+getString(R.string.base_folder_name));
+        Log.i("test", "unique name " + outletId);
+        File file = new File(extFile, "/" + getString(R.string.base_folder_name));
         if (!file.exists()) {
             Log.i("test", "Directory does not exists ak_projects ");
             file.mkdir();
@@ -257,7 +257,7 @@ public class OutletEditScreen extends ActionBarActivity {
         validate_data();
         FoodMenu foodMenu = new FoodMenu();
         foodMenu.setOutletDetail(om);
-        String path = extFile.getAbsolutePath()+"/"+getString(R.string.base_folder_name)+"/"+outletId+"/"+getString(R.string.DETAILS);
+        String path = extFile.getAbsolutePath() + "/" + getString(R.string.base_folder_name) + "/" + outletId + "/" + getString(R.string.DETAILS);
         FileUtils.WriteFoodMenu(path, foodMenu);
 
         Intent i = new Intent(this, OutletDetailScreen.class);

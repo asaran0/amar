@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:weightSum="1"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/outlet_list_item_vendor_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".4"
+            android:text="Vendor Name"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/outlet_list_item_outlet_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".4"
+            android:text="Outlet Name"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/outlet_list_item_status"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".2"
+            android:text="Status"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight=".2"
+            android:layout_height="60dp"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/outlet_list_item_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@xml/checkbox"
+                android:focusable="false"
+                android:visibility="gone"
+                android:focusableInTouchMode="false" />
+            <TextView
+                android:id="@+id/outlet_list_item_uploadedStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:textSize="10sp"
+                android:visibility="gone"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@android:color/holo_green_dark"
+                />
+            <com.github.lzyzsd.circleprogress.DonutProgress
+                android:id="@+id/outlet_list_item_uploading_progress"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:visibility="gone"
+                android:gravity="center"
+                custom:donut_unfinished_stroke_width="2dp"
+                custom:donut_finished_stroke_width="3dp"
+                custom:donut_progress="0"
+                custom:donut_text_size="12sp"
+                custom:donut_text_color="#008000"
+                custom:donut_finished_color="#008000"/>
+            <ImageView
+                android:id="@+id/outlet_list_item_upload_done"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:gravity="center"
+                android:src="@drawable/ic_file_cloud_done"
+                android:indeterminate="true"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
