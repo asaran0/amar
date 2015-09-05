@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import ak.amar_new.R;
@@ -31,6 +32,7 @@ public class OutletListScreen extends ActionBarActivity {
     private Toolbar mToolbar;
     private ListView listView;
     private OutletListAdapter outletListAdapter;
+    //private File
     private ArrayList<FoodDetail> foodDetailList = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -134,9 +136,11 @@ public class OutletListScreen extends ActionBarActivity {
     }
     public ArrayList<FoodDetail> getFoodDetailList(){
         ArrayList<FoodDetail> data = new ArrayList<>();
-        
         FoodDetail tempData = new FoodDetail();
 
         return data;
+    }
+    public void SyncData(View view) {
+
     }
 }

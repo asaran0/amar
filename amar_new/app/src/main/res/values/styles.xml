@@ -17,14 +17,14 @@
         &lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;
     </style>
 -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
-<!--
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+&lt;!&ndash;
         <item name="colorAccent" >@color/colorAccent</item>
         <item name="colorPrimary" >@color/colorPrimary</item>
-        <item name="colorPrimaryDark" >@color/colorPrimaryDark</item>-->
-        <!--<item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>-->
-    </style>
+        <item name="colorPrimaryDark" >@color/colorPrimaryDark</item>&ndash;&gt;
+        &lt;!&ndash;<item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>&ndash;&gt;
+    </style>-->
     <style name="mainScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <!--
@@ -34,15 +34,15 @@
         <!--<item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>-->
     </style>
 
-    <style name="DefaultActionBarTheme" parent="Theme.AppCompat.NoActionBar">
+    <!--<style name="DefaultActionBarTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowNoTitle">true</item>
-        <!--<item name="android:windowActionBar">false</item>-->
+        &lt;!&ndash;<item name="android:windowActionBar">false</item>&ndash;&gt;
         <item name="android:textColorPrimary">@color/windowbackgroundcolor</item>
         <item name="android:windowBackground">@color/windowbackgroundcolor</item>
-    </style>
+    </style>-->
 
-    <style name="popUpTheme">
+    <!--<style name="popUpTheme">
         <item name="android:textColor">@color/actionbarbgcolor</item>
-    </style>
+    </style>-->
 
 </resources>

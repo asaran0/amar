@@ -63,7 +63,6 @@ android:versionName="1.0">
 
     <activity
         android:name="ak.amar_new.activities.MainScreen"
-        android:theme="@style/mainScreenTheme"
         android:screenOrientation="portrait">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
